@@ -1,4 +1,3 @@
-// lib/auth.ts
 import type { AuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from './prisma'
@@ -21,7 +20,11 @@ const authOptions: AuthOptions = {
           throw new Error('Invalid credentials')
         }
 
-        return { id: user.id + '', email: user.email, name: user.name ?? '' }
+        return {
+          id: user.id.toString(),
+          email: user.email,
+          name: user.name ?? '',
+        }
       },
     }),
   ],

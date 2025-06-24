@@ -1,24 +1,29 @@
 'use client'
 
 import { useState } from 'react'
-import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 
-export default function Register() {
+export default function RegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
 
-  const handleRegister = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await axios.post('/api/register', { email, password })
-    router.push('/login')
+    try {
+      await axios.post('/api/register', { email, password })
+      router.push('/login')
+    } catch (err) {
+      alert('User already exists')
+    }
   }
 
   return (
-    <form onSubmit={handleRegister}>
-      <input placeholder="Email" onChange={e => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+    <form onSubmit={handleSubmit}>
+      <h1>Register</h1>
+      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <button type="submit">Register</button>
     </form>
   )
