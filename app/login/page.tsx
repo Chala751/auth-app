@@ -5,16 +5,15 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock } from 'lucide-react'
 import { FcGoogle } from 'react-icons/fc'
+import { toast } from 'sonner'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
 
     const res = await signIn('credentials', {
       email,
@@ -23,9 +22,10 @@ export default function LoginPage() {
     })
 
     if (res?.ok) {
+      toast.success('Login successful!')
       router.push('/dashboard')
     } else {
-      setError('Invalid credentials')
+      toast.error('Invalid credentials')
     }
   }
 
@@ -65,15 +65,12 @@ export default function LoginPage() {
           >
             Login
           </button>
-
-          {error && <p className="text-red-500 text-center text-sm">{error}</p>}
         </form>
 
         <div className="flex items-center justify-center">
           <span className="text-sm text-gray-500">or</span>
         </div>
 
-        {/* Google Login Button */}
         <button
           onClick={() => signIn('google')}
           className="w-full flex items-center justify-center gap-3 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-100 transition cursor-pointer"
