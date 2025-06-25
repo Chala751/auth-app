@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock } from 'lucide-react'
+import { FcGoogle } from 'react-icons/fc'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -34,7 +35,6 @@ export default function LoginPage() {
         <h2 className="text-center text-3xl font-bold text-gray-900">Sign in to your account</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
           <div className="relative">
             <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
             <input
@@ -47,7 +47,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Password */}
           <div className="relative">
             <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
             <input
@@ -60,7 +59,6 @@ export default function LoginPage() {
             />
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
@@ -68,11 +66,21 @@ export default function LoginPage() {
             Login
           </button>
 
-          {/* Error message */}
-          {error && (
-            <p className="text-red-500 text-center text-sm">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-center text-sm">{error}</p>}
         </form>
+
+        <div className="flex items-center justify-center">
+          <span className="text-sm text-gray-500">or</span>
+        </div>
+
+        {/* Google Login Button */}
+        <button
+          onClick={() => signIn('google')}
+          className="w-full flex items-center justify-center gap-3 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-100 transition cursor-pointer"
+        >
+          <FcGoogle className="text-xl" />
+          <span className="text-sm text-gray-700">Continue with Google</span>
+        </button>
 
         <p className="text-center text-sm text-gray-600">
           Don&apos;t have an account?{' '}
