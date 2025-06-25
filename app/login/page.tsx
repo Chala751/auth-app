@@ -72,7 +72,8 @@ export default function LoginPage() {
         </div>
 
         <button
-          onClick={() => signIn('google')}
+          onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+
           className="w-full flex items-center justify-center gap-3 py-2 border border-gray-300 rounded-md bg-white hover:bg-gray-100 transition cursor-pointer"
         >
           <FcGoogle className="text-xl" />
