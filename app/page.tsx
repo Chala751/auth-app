@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { Mail, Lock } from 'lucide-react'
+import { Mail, Lock, User } from 'lucide-react'
 
 export default function Home() {
   const router = useRouter()
+  const [name, setName] = useState('')
+  const [gender, setGender] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -18,8 +20,10 @@ export default function Home() {
     setSuccess(false)
 
     try {
-      await axios.post('/api/register', { email, password })
+      await axios.post('/api/register', { name, gender, email, password })
       setSuccess(true)
+      setName('')
+      setGender('')
       setEmail('')
       setPassword('')
       setTimeout(() => {
@@ -36,30 +40,58 @@ export default function Home() {
         <h2 className="text-center text-3xl font-bold text-gray-900">Create your account</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Name */}
           <div className="relative">
-            <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-900" />
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Gender */}
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+
+          {/* Email */}
+          <div className="relative">
+            <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-900" />
             <input
               type="email"
               placeholder="Email"
-              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
+          {/* Password */}
           <div className="relative">
-            <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-900" />
             <input
               type="password"
               placeholder="Password"
-              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
