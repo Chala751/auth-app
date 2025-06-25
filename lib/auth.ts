@@ -30,7 +30,6 @@ const authOptions: NextAuthOptions = {
         const isValid = await compare(credentials.password, user.password)
         if (!isValid) return null
 
-        // ✅ Convert ID to string to match NextAuth type
         return {
           id: user.id.toString(),
           email: user.email,
@@ -45,6 +44,21 @@ const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id?.toString()
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user && token?.id) {
+        session.user.id = token.id as string
+      }
+      return session
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
 }
+
 export default authOptions
