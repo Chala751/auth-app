@@ -8,11 +8,23 @@ export default async function DashboardPage() {
   if (!session) redirect('/login')
 
   return (
-    <div>
-      <h1>Welcome, {session.user?.email}</h1>
-      <form action="/api/auth/signout" method="post">
-        <button formAction="/api/auth/signout" type="submit">Logout</button>
-      </form>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-xl bg-white shadow-lg rounded-xl p-8 space-y-6">
+        <h1 className="text-3xl font-bold text-center text-blue-700">Welcome to Your Dashboard</h1>
+
+        <div className="text-center text-lg text-gray-800">
+          You are logged in as <span className="font-semibold">{session.user?.email}</span>
+        </div>
+
+        <form action="/api/auth/signout" method="post" className="flex justify-center">
+          <button
+            type="submit"
+            className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition  cursor-pointer"
+          >
+            Logout
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
