@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
 import { signOut } from 'next-auth/react'
+import { useSearchParams } from 'next/navigation'
 import { toast } from 'sonner'
 
 interface Props {
@@ -9,6 +11,15 @@ interface Props {
 }
 
 export default function ClientDashboard({ name, email }: Props) {
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const fromGoogle = searchParams.get('google') === 'success'
+    if (fromGoogle) {
+      toast.success('Google login successful!')
+    }
+  }, [searchParams])
+
   const handleLogout = () => {
     toast.success('Logging out...')
     setTimeout(() => signOut(), 1000)
