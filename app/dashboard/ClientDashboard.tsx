@@ -36,6 +36,19 @@ export default function ClientDashboard({ name, email,role }: Props) {
         <div>You are logged in as <span className="font-semibold">{email}</span></div>
         {role && <div>Role: <span className="text-indigo-600 font-medium">{role}</span></div>}
       </div>
+      {/* 👑 Show admin link */}
+     {role === 'admin' && (
+     <div className="mt-6 text-center">
+      <h2 className="text-xl font-semibold text-green-600">🔐 Admin Access Granted</h2>
+      <p className="text-gray-600">You can manage system-wide settings and users.</p>
+      <a
+       href="/admin"
+        className="mt-3 inline-block px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+      >
+      Go to Admin Panel
+      </a>
+     </div>
+     )}
 
       {/* 🔒 Logout */}
       <div className="flex justify-center">
