@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma'
 import { hash } from 'bcrypt'
 
 export async function POST(req: Request) {
-  const { name, gender, email, password } = await req.json()
+  const { name, gender, email, password ,role = "user"} = await req.json()
 
   const userExists = await prisma.user.findUnique({ where: { email } })
   if (userExists) {
@@ -18,6 +18,7 @@ export async function POST(req: Request) {
       gender,
       email,
       password: hashedPassword,
+      role,
     },
   })
 
