@@ -8,9 +8,10 @@ import { toast } from 'sonner'
 interface Props {
   name?: string | null
   email?: string | null
+  role?: string | null
 }
 
-export default function ClientDashboard({ name, email }: Props) {
+export default function ClientDashboard({ name, email,role }: Props) {
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function ClientDashboard({ name, email }: Props) {
       <div className="text-center text-lg text-gray-800 space-y-1">
         {name && <div>Hello, <span className="font-semibold">{name}</span>!</div>}
         <div>You are logged in as <span className="font-semibold">{email}</span></div>
+        {role && <div>Role: <span className="text-indigo-600 font-medium">{role}</span></div>}
       </div>
 
       {/* 🔒 Logout */}
