@@ -47,7 +47,7 @@ export default function ManageUsers() {
                 <th className="px-4 py-2 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
+            <tbody className="divide-y divide-gray-100 text-sm text-gray-900">
               {users.map((user: any) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-4 py-2">{user.id}</td>
@@ -68,7 +68,7 @@ export default function ManageUsers() {
                   <td className="px-4 py-2 text-center">
                     <button
                       onClick={() => deleteUser(user.id)}
-                      className="text-red-600 hover:text-red-800 inline-flex items-center gap-1"
+                      className="text-red-600 hover:text-red-800 inline-flex items-center gap-1 cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                       Delete
