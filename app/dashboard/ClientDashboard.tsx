@@ -50,6 +50,20 @@ export default function ClientDashboard({ name, email,role }: Props) {
      </div>
      )}
 
+     {/* 🏠 User Section */}
+      {role === 'user' && (
+        <div className="mt-6 text-center">
+          <h2 className="text-xl font-semibold text-blue-600">🏠 User Home</h2>
+          <p className="text-gray-600">Explore features available to you as a user.</p>
+          <a
+            href="/"
+            className="mt-3 inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          >
+            Go to Home Page
+          </a>
+        </div>
+      )}
+
       {/* 🔒 Logout */}
       <div className="flex justify-center">
         <button
